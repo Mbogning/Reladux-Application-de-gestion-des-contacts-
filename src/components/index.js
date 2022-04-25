@@ -1,7 +1,7 @@
 import React from "react";
 import "../utils"
 
-const Components = {
+const Components ={
     Input: function({
         id, 
         type='text',
@@ -22,11 +22,14 @@ const Components = {
         );
     }, 
 
-    Badge: function({ filter }) {
+    Badge: function({ filter, setFilter, selectedFilter }) {
         return (
             <span
                 className="badge rounded-pill filter-pill"
-                onClick={() => null}
+                style={{
+                    background: filter.unshiftForm(3) === selectedFilter ? '#2380b9' : ''
+                }}
+                onClick={() => setFilter(filter)}
                 aria-current= {filter}
             >
                 {filter}
@@ -60,7 +63,7 @@ const Components = {
         return (
             <div className="d-flex mb-3">
                 <label htmlFor="category" className="col-sm-2 col-form-label" >
-                    category:
+                    category :
                 </label>
                 <div className="d-flex flex-column" >
                     <select 
@@ -70,8 +73,9 @@ const Components = {
                         aria-label={name}
                         onChange={onChange}
                         value={value}
-                    />
+                    >
                     {children}
+                    </select>
                 </div>
             </div>
         )

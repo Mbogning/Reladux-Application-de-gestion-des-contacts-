@@ -22,8 +22,8 @@ function Row(props) {
         const input = window.confirm('Voulez-vous supprimer ce contact ?')
     };
 
-    const show = () => { }
-    const hide = () => { }
+    const show = () => setVisible(true)
+    const hide = () => setVisible(false)
 
     return (
         <div href="#"
@@ -74,13 +74,13 @@ function Row(props) {
                 <ul className="list-controls list-inline">
                     {!isEditing && (
                         <li className="list-inline-item controls" onClick={editCtc} >
-                            <i className="fas fa-pen">Edit</i>
+                            <i className="fas fa-edit">Edit</i>
                         </li>
                     )}
 
-                    {!isEditing && (
+                    {isEditing && (
                         <li className="list-inline-item controls" onClick={save} >
-                            <i className="fas fa-pen">Save</i>
+                            <i className="fas fa-save">Save</i>
                         </li>
                     )}
                     <li className="list-inline-item controls" onClick={removeCtc} >

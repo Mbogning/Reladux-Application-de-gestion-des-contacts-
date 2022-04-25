@@ -28,7 +28,7 @@ module.exports = [
         name: "Leo",
         phone: "694144520",
         email: "leo@gmail.com",
-        category: "friend"
+        category: "friends"
 
     },
     {
@@ -68,7 +68,7 @@ module.exports = [
         name: "Amono",
         phone: "694144520",
         email: "amono@gmail.com",
-        category: "friend"
+        category: "friends"
 
     },
     {
@@ -76,7 +76,7 @@ module.exports = [
         name: "Jonathan",
         phone: "694144520",
         email: "jonathan@gmail.com",
-        category: "friend"
+        category: "friends"
 
     },
     {
@@ -84,7 +84,7 @@ module.exports = [
         name: "Deric",
         phone: "694144520",
         email: "deric@gmail.com",
-        category: "friend"
+        category: "friends"
 
     },
 ]

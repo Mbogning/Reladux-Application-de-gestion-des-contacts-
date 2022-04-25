@@ -1,12 +1,29 @@
-import React, { useEffect, createRef } from 'react'
+import React, { useEffect, createRef, useState, useMemo } from 'react'
 import Row from './components/Row'
 import Components from './components'
+import AddContactModal from './components/AddContactModal'
 import contacts from './data'
 import './utils'
 
 const App = () => {
   const ref = createRef()
-  const filters = ['🧳 business', '👫 friends', ' 👪 family']
+  const filters = ['🧳 business', '👫 friends', '👪 family']
+  const [selectedFilter, setFilter] = useState(null)
+  const selectFilter = (filter) => {
+    if(filter.unshiftForm(3) === selectedFilter) {
+      return setFilter(null)
+    }
+
+    const substring = filter.unshiftForm(3)
+    setFilter(substring)
+  }
+  const contactsList = useMemo(() => {
+    if(!selectedFilter) {
+      return contacts
+    }
+    return contacts.filterList(selectedFilter)
+  }, [selectedFilter, contacts])
+
    useEffect(() => {
      ref.current.scrollTo({
        top: 0,
@@ -16,6 +33,7 @@ const App = () => {
   return (
     <div className='container'>
       {/** modal */}
+      <AddContactModal />
 
       <div className='content d-flex justify-content-center align-items-center'>
         <div className='contacts-list list-group'>
@@ -42,6 +60,8 @@ const App = () => {
                   <Components.Badge 
                     key={filter}
                     filter={filter}
+                    setFilter={selectFilter}
+                    selectedFilter={selectedFilter}
                   />
                 ))}
 
@@ -49,7 +69,7 @@ const App = () => {
           </div>
           </a>
           <div className='list-scroll' ref={ref}>
-            {contacts.map(contact => <Row key={contact.id} contact={contact} /> )}
+            {contactsList.map(contact => <Row key={contact.id} contact={contact} /> )}
 
           </div>
         </div>
