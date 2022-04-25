@@ -6,7 +6,7 @@ import './utils'
 
 const App = () => {
   const ref = createRef()
-  const filters = ['business', 'friends', 'family']
+  const filters = ['🧳 business', '👫 friends', ' 👪 family']
    useEffect(() => {
      ref.current.scrollTo({
        top: 0,
@@ -36,7 +36,7 @@ const App = () => {
 
               </button>
             </div>
-            <div className='d-flex justify-content-around' style={{width: "200px"}}>
+            <div className='d-flex justify-content-around' style={{width: "250px"}}>
 
                 {filters.map((filter) => (
                   <Components.Badge 
