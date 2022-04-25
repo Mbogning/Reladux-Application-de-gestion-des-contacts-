@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import ReactPhoneInput from 'react-phone-input-2'
 import Modal from './Modal'
 import Components from "../../components";
+import { useFormValidation } from "../../hooks/useFormValidation";
 import "react-phone-input-2/lib/style.css"
 
 
@@ -14,10 +15,11 @@ const initialState = {
     category: "business",
 };
 
-function AddContactModal() {
+function AddContactModal({ add }) {
+    const { validate } = useFormValidation();
     const filters = ['business', 'friends', 'family'];
     const [contact, setContact] = useState({ ...initialState });
-    const save = () => { };
+    const save = () => { add(contact)};
     const handleOnChange = (e) => {
         setContact((prevState) => ({
             ...prevState,
@@ -25,11 +27,15 @@ function AddContactModal() {
         }));
     }
 
+    useEffect(() => {
+        validate(contact)
+    }, [contact, validate])
+
     return (
-        <Modal save={save} titke='Ajouter un nouveau contact :' >
+        <Modal save={save} title="Ajouter un nouveau contact" >
             <Components.Select
                 name='category'
-                value={contact.first || ''}
+                value={contact.category}
                 onChange={handleOnChange}>
                 {filters.map((filter) => {
                     return <option key={filter} >{filter}</option>

@@ -1,32 +1,44 @@
 import React from "react"
+import { useFormValidation } from "../../hooks/useFormValidation";
+
+function Footer({ save }) {
+    const { isValid } = useFormValidation();
+    return (
+        <div className="modal-footer">
+            <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+            >Close</button>
+            <button
+                type="button"
+                onClick={save}
+                className="btn btn-primary"
+                disabled={!isValid}
+            >Save</button>
+        </div>
+    )
+};
 
 function Modal({ title, children, save }) {
-    // const [isSave, save] = useState(null)
-    // const Footer = () => {}
-    const Footer = () => {
-        return (
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        )
-    }
-   
+
     return (
         <div
             className="modal fade"
             id="addContact"
             tabIndex="-1"
-            aria-aria-labelledby="addContact"
+            aria-labelledby="addContact"
             aria-hidden="true"
         >
             <div className="modal-dialog modal-lg" >
                 <div className="modal-content" >
-                    <header title={title} ></header>
+                    <div className="modal-header">
+                        <header className="modal-title">{title}</header>
+                    </div>
                     <div className="modal-body" >
                         <div className="row">{children}</div>
                     </div>
-                     <Footer save={save} /> 
+                    <Footer save={save} />
                 </div>
             </div>
 

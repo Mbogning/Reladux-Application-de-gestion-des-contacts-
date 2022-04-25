@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { createContext, useState, useMemo, useContext } from "react";
 
 const Context = createContext();
 
 function FormProvider({ children }) {
-    const [isValid, setValid] = useState(false)
+    const [isValid, setValid] = useState(false);
     const validate = (fields) => {
         let errors = [];
         Object.entries(fields).map(([key, value]) => {
@@ -19,13 +19,13 @@ function FormProvider({ children }) {
             validate,
             isValid
         };
-        
-    
     }, [isValid]);
     return <Context.Provider value={value}>{children}</Context.Provider>;
     
 }
 
 export function useFormValidation() {
-    
+    return useContext(Context);
 }
+
+export default FormProvider

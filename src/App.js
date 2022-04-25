@@ -8,6 +8,7 @@ import './utils'
 const App = () => {
   const ref = createRef()
   const filters = ['🧳 business', '👫 friends', '👪 family']
+  const [list, setList] = useState(contacts)
   const [selectedFilter, setFilter] = useState(null)
   const selectFilter = (filter) => {
     if(filter.unshiftForm(3) === selectedFilter) {
@@ -17,11 +18,16 @@ const App = () => {
     const substring = filter.unshiftForm(3)
     setFilter(substring)
   }
+  /** fonction pour enregister un contact en prenant en parametre contact. puis il merge la liste des contact */
+  const add = (contact) => {
+    const newContact = {...contact, id: list.length +1, name: `${contact.first} ${contact.last}`}
+    setList([contact, ...list])
+  }
   const contactsList = useMemo(() => {
     if(!selectedFilter) {
-      return contacts
+      return list
     }
-    return contacts.filterList(selectedFilter)
+    return list.filterList(selectedFilter)
   }, [selectedFilter, contacts])
 
    useEffect(() => {
@@ -33,7 +39,7 @@ const App = () => {
   return (
     <div className='container'>
       {/** modal */}
-      <AddContactModal />
+      <AddContactModal add={add} />
 
       <div className='content d-flex justify-content-center align-items-center'>
         <div className='contacts-list list-group'>
